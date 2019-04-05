@@ -1,4 +1,4 @@
-An app to help keep you hyrdated while on a long flight.
+An app to help keep you hydrated while on a long flight.
 
 Planned features:
 - When a user taps a coffee, it adds 1 to "drink now" water indicator
