@@ -1,5 +1,6 @@
 package karl.dusenbery.com;
 
+import android.app.Application;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.SystemClock;
@@ -120,5 +121,8 @@ public class MainActivity extends AppCompatActivity {
         // (1) Get the environment's API key
         String apiKey = "client-38IdDywfH8nJz7wvZF1C1nBSX8nzg82s";
 
+        // (2) Configure and initialize the experiment client
+        ExperimentConfig config = new ExperimentConfig();
+        ExperimentClient client = Experiment.initialize(getApplication(), apiKey, config);
     }
 }
