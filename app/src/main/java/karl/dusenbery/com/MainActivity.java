@@ -31,7 +31,8 @@ public class MainActivity extends AppCompatActivity {
     private Button mPlusWaterButton;
     private Button mPlusCoffeeButton;
 
-
+    //bigger PlusCoffeeButton
+    private Button mPlusCoffeeButtonBig;
 
     private TextView mPlusWater;
     private TextView mPlusCoffee;
@@ -57,6 +58,10 @@ public class MainActivity extends AppCompatActivity {
         mPlusWater = (TextView) findViewById(R.id.tvDrank);
 
         mPlusCoffeeButton = (Button) findViewById(R.id.btnPlusCoffee);
+
+        //bigger PlusCoffeeButton associated with an Android view
+        mPlusCoffeeButtonBig = (Button) findViewById(R.id.btnPlusCoffeeBig);
+
         mPlusCoffee = (TextView) findViewById(R.id.tvCoffeesDrank);
 
         mChronometer = (Chronometer) findViewById(R.id.chronometer);
@@ -127,19 +132,19 @@ public class MainActivity extends AppCompatActivity {
         String apiKey = "client-38IdDywfH8nJz7wvZF1C1nBSX8nzg82s";
 
         // --- Initializing the Amplitude Analytics client here ---
-        AmplitudeClient amplitudeClient = Amplitude.getInstance();
-        amplitudeClient.initialize(this, apiKey);
+        //AmplitudeClient amplitudeClient = Amplitude.getInstance();
+        //amplitudeClient.initialize(getApplicationContext(), apiKey);
 
         // Set a User ID for the user.
         String userId = "john.dusenbery@gmail.com";
-        amplitudeClient.setUserId(userId);
+        //amplitudeClient.setUserId(userId);
 
         // (2) Configure and initialize the experiment client
         ExperimentConfig config = new ExperimentConfig();
         ExperimentClient client = Experiment.initialize(getApplication(), apiKey, config);
 
         // Set the user provider before fetching variants
-        client.setUserProvider(new AmplitudeUserProvider(amplitudeClient));
+        //client.setUserProvider(new AmplitudeUserProvider(amplitudeClient));
 
         // No need to pass a user into the client fetch the user
         // will be populated by the AmplitudeUserProvider
@@ -162,8 +167,12 @@ public class MainActivity extends AppCompatActivity {
         Variant variant = client.variant(flagKey);
         if (variant.is("big_under")) {
             // Flag is big_under
+            findViewById(R.id.btnPlusCoffee).setVisibility(View.GONE);
+            findViewById(R.id.btnPlusCoffeeBig).setVisibility(View.VISIBLE);
         } else {
             // Flag is off
+            findViewById(R.id.btnPlusCoffee).setVisibility(View.VISIBLE);
+            findViewById(R.id.btnPlusCoffeeBig).setVisibility(View.GONE);
         }
 
 
