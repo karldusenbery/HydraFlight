@@ -26,6 +26,9 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
-    // added the following for Amplitude
+    // --- added the following for Amplitude ---
     implementation 'com.amplitude:experiment-android-client:1.3.0'
+
+    // Amplitude analytics SDK installation dependency
+    implementation 'com.amplitude:android-sdk:2.26.1'
 }
