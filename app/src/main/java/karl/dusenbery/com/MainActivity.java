@@ -11,11 +11,16 @@ import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.TextView;
 
+import com.amplitude.api.Amplitude;
+import com.amplitude.api.AmplitudeClient;
+import com.amplitude.api.AmplitudeUserProvider;
 import com.amplitude.experiment.Experiment;
 import com.amplitude.experiment.ExperimentClient;
 import com.amplitude.experiment.ExperimentConfig;
 import com.amplitude.experiment.ExperimentUser;
 import com.amplitude.experiment.Variant;
+
+import java.util.concurrent.Future;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -118,16 +123,31 @@ public class MainActivity extends AppCompatActivity {
 
         //--- Amplitude initialization (4 parts) ---
 
-        // (1) Get the environment's API key
+        // (1) Set the environment's API key
         String apiKey = "client-38IdDywfH8nJz7wvZF1C1nBSX8nzg82s";
+
+        // --- Initializing the Amplitude Analytics client here ---
+        AmplitudeClient amplitudeClient = Amplitude.getInstance();
+        amplitudeClient.initialize(this, apiKey);
+
+        // Set a User ID for the user.
+        String userId = "john.dusenbery@gmail.com";
+        amplitudeClient.setUserId(userId);
 
         // (2) Configure and initialize the experiment client
         ExperimentConfig config = new ExperimentConfig();
         ExperimentClient client = Experiment.initialize(getApplication(), apiKey, config);
 
+        // Set the user provider before fetching variants
+        client.setUserProvider(new AmplitudeUserProvider(amplitudeClient));
+
+        // No need to pass a user into the client fetch the user
+        // will be populated by the AmplitudeUserProvider
+        Future<ExperimentClient> future = client.fetch(null);
+
         // (3) Fetch variants for a user
         ExperimentUser user = ExperimentUser.builder()
-                .userId("john.dusenbery@gmail.com")
+                .userId(userId)
                 .deviceId("a9367070ab4dad1b")
                 .userProperty("premium", true)
                 .build();
@@ -145,5 +165,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
             // Flag is off
         }
+
+
     }
 }
