@@ -168,10 +168,12 @@ public class MainActivity extends AppCompatActivity {
         if (variant.is("big_under")) {
             // Flag is big_under
             findViewById(R.id.btnPlusCoffee).setVisibility(View.GONE);
+            findViewById(R.id.tvCoffeesDrank).setVisibility(View.GONE);
             findViewById(R.id.btnPlusCoffeeBig).setVisibility(View.VISIBLE);
         } else {
             // Flag is off
             findViewById(R.id.btnPlusCoffee).setVisibility(View.VISIBLE);
+            findViewById(R.id.tvCoffeesDrank).setVisibility(View.VISIBLE);
             findViewById(R.id.btnPlusCoffeeBig).setVisibility(View.GONE);
         }
 
