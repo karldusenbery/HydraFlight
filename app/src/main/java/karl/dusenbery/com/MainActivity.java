@@ -10,6 +10,12 @@ import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.TextView;
 
+import com.amplitude.experiment.Experiment;
+import com.amplitude.experiment.ExperimentClient;
+import com.amplitude.experiment.ExperimentConfig;
+import com.amplitude.experiment.ExperimentUser;
+import com.amplitude.experiment.Variant;
+
 public class MainActivity extends AppCompatActivity {
 
     private Button mStartButton;
@@ -107,5 +113,12 @@ public class MainActivity extends AppCompatActivity {
                 mPlusCoffee.setText(sCoffeesDrank);
             }
         });
+
+
+        //--- Amplitude initialization (4 parts) ---
+
+        // (1) Get the environment's API key
+        String apiKey = "client-38IdDywfH8nJz7wvZF1C1nBSX8nzg82s";
+
     }
 }
