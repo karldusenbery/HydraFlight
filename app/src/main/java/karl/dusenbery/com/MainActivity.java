@@ -124,5 +124,26 @@ public class MainActivity extends AppCompatActivity {
         // (2) Configure and initialize the experiment client
         ExperimentConfig config = new ExperimentConfig();
         ExperimentClient client = Experiment.initialize(getApplication(), apiKey, config);
+
+        // (3) Fetch variants for a user
+        ExperimentUser user = ExperimentUser.builder()
+                .userId("john.dusenbery@gmail.com")
+                .deviceId("a9367070ab4dad1b")
+                .userProperty("premium", true)
+                .build();
+        try {
+            client.fetch(user).get();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // (4) Lookup a flag's variant
+        String flagKey = "button-location";
+        Variant variant = client.variant(flagKey);
+        if (variant.is("big_under")) {
+            // Flag is big_under
+        } else {
+            // Flag is off
+        }
     }
 }
